@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todolist/screens/taskpage.dart';
 import 'package:todolist/screens/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,25 +33,57 @@ class HomePage_State extends State<HomePage> {
                             image: AssetImage('assets/images/logo.png'),
                           ),
                         ),
-                        TaskCardWidget(
-                          title: "Get Started",
-                          content:
-                              "As we know, webpages get crawled and indexed in the search engine. There is something that we can do to make this process easy-going, optimize the websites for search engine search.",
-                        )
+                        Expanded(
+                            child: ListView(children: [
+                          TaskCardWidget(
+                            title: "Get Started",
+                            content:
+                                "As we know, webpages get crawled and indexed in the search engine. There is something that we can do to make this process easy-going, optimize the websites for search engine search.",
+                          ),
+                          TaskCardWidget(
+                            title: "Get Started",
+                            content:
+                                "As we know, webpages get crawled and indexed in the search engine. There is something that we can do to make this process easy-going, optimize the websites for search engine search.",
+                          ),
+                          TaskCardWidget(
+                            title: "Get Started",
+                            content:
+                                "As we know, webpages get crawled and indexed in the search engine. There is something that we can do to make this process easy-going, optimize the websites for search engine search.",
+                          ),
+                          TaskCardWidget(
+                            title: "Get Started",
+                            content:
+                                "As we know, webpages get crawled and indexed in the search engine. There is something that we can do to make this process easy-going, optimize the websites for search engine search.",
+                          ),
+                          TaskCardWidget(
+                            title: "Get Started",
+                            content:
+                                "As we know, webpages get crawled and indexed in the search engine. There is something that we can do to make this process easy-going, optimize the websites for search engine search.",
+                          )
+                        ]))
                       ]),
                   Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF7349FE),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Image(image: AssetImage('assets/images/add_icon.png'),),
-                    ),
-                  )
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TaskPage()),
+                          );
+                        },
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF7349FE),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Image(
+                            image: AssetImage('assets/images/add_icon.png'),
+                          ),
+                        ),
+                      ))
                 ],
               ))),
     );

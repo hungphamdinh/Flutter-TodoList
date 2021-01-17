@@ -9,6 +9,9 @@ class TaskCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
+        margin: EdgeInsets.only(
+          bottom: 32,
+        ),
         padding: EdgeInsets.symmetric(
           vertical: 32,
           horizontal: 24,
