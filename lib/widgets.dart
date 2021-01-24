@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/themes/color.dart';
+
 class TaskCardWidget extends StatelessWidget {
   final String title;
-  final String content;
-  TaskCardWidget({this.title, this.content, description});
+  final String description;
+  TaskCardWidget({this.title, this.description});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +31,7 @@ class TaskCardWidget extends StatelessWidget {
             ),
             Padding(padding: EdgeInsets.only(top: 15)),
             Text(
-              content ?? "Blank Text",
+              description ?? "Blank Text",
               style: TextStyle(
                 fontSize: 16.0,
                 height: 1.5,
@@ -62,19 +63,22 @@ class TodoWidget extends StatelessWidget {
               margin: EdgeInsets.only(right: 12),
               decoration: BoxDecoration(
                   color: isDone ? (appPrimary) : (appWhite),
-                  border: isDone ? null : Border.all(color: (appLightPurple), width: 1.5),
+                  border: isDone
+                      ? null
+                      : Border.all(color: (appLightPurple), width: 1.5),
                   borderRadius: BorderRadius.circular(6)),
               child: Image(
                 image: AssetImage('assets/images/check_icon.png'),
               )),
-          Text(
+          Flexible(
+              child: Text(
             text ?? 'Unknow todo',
             style: TextStyle(
               color: isDone ? Colors.black : (appLightPurple),
               fontSize: 16,
               fontWeight: isDone ? FontWeight.bold : FontWeight.w500,
             ),
-          )
+          ))
         ],
       ),
     );
@@ -84,8 +88,7 @@ class TodoWidget extends StatelessWidget {
 class NoGlowBehaviour extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
-    BuildContext context, Widget child, AxisDirection axisDirection
-  ) {
+      BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
   }
 }
