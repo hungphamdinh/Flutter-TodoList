@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todolist/screens/SplashScreen.dart';
 import 'package:todolist/screens/homepage.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
           textTheme: GoogleFonts.nunitoSansTextTheme(
         Theme.of(context).textTheme,
       )),
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
