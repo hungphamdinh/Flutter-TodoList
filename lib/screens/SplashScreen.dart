@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todolist/screens/homepage.dart';
-import 'package:todolist/screens/taskpage.dart';
+import 'package:todolist/screens/IntroductionScreen.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ class SplashScreen_State extends State<SplashScreen> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage()));
+              builder: (context) => IntroductionScreen()));
     });
     return Scaffold(
       body: Container(

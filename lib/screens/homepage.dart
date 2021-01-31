@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/database_helper.dart';
 import 'package:todolist/models/task.dart';
 import 'package:todolist/screens/taskpage.dart';
-import 'package:todolist/widgets.dart';
+import 'package:todolist/components/widgets.dart';
 import 'package:todolist/themes/color.dart';
 
 class HomePage extends StatefulWidget {
