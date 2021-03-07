@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/components/dropdown.dart';
 import 'package:todolist/components/widgets.dart';
 import 'package:todolist/models/job.dart';
-import 'package:todolist/screens/PersonalInfoScreen.dart';
+import 'package:todolist/screens/JobScreen.dart';
 import 'package:todolist/screens/homepage.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +14,13 @@ import 'package:todolist/themes/metrics.dart';
 
 import '../database_helper.dart';
 
-class JobScreen extends StatefulWidget {
+class PersonalInfoScreen extends StatefulWidget {
   final Job job;
 
-  const JobScreen({Key key, this.job}) : super(key: key);
+  const PersonalInfoScreen({Key key, this.job}) : super(key: key);
 
   @override
-  JobScreen_State createState() => JobScreen_State();
+  PersonalInfoScreen_State createState() => PersonalInfoScreen_State();
 }
 
 List<Map<String, dynamic>> taskMap = [
@@ -54,12 +54,14 @@ List<Map<String, dynamic>> taskMap = [
   {"id": 8, "name": "Other", "isDone": false, "textFontSize": fontSizeLarge},
 ];
 
-class JobScreen_State extends State<JobScreen> {
+class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
   List<Job> _taskMap;
   int id = 0;
   String name = "";
   bool isDone = false;
   int dropdownIdx = 0;
+  String _value = 'one';
+  String dropdownValue = 'One';
   double textFontSize = fontSizeLarge;
   @override
   void initState() {
@@ -78,16 +80,6 @@ class JobScreen_State extends State<JobScreen> {
       );
     });
     super.initState();
-  }
-
-  Future<List<Job>> _onGetJob() async {
-    return List.generate(_taskMap.length, (index) {
-      return Job(
-        id: _taskMap[index].id,
-        name: _taskMap[index].name,
-        isDone: _taskMap[index].isDone,
-      );
-    });
   }
 
   Widget build(BuildContext context) {
@@ -142,55 +134,55 @@ class JobScreen_State extends State<JobScreen> {
                   )),
                 ),
                 Container(
-                    height: 200,
-                    child: ScrollConfiguration(
-                        behavior: NoGlowBehaviour(),
-                        child: FutureBuilder(
-                            initialData: [],
-                            future: _onGetJob(),
-                            builder: (context, snapshot) {
-                              return ListView.builder(
-                                itemCount: snapshot.data.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _taskMap
-                                              .asMap()
-                                              .forEach((idx, value) => {
-                                                    value.setIsDone(false),
-                                                    if (idx == index)
-                                                      {
-                                                        value.setTextFontSize(
-                                                            fontSizeHuge),
-                                                      }
-                                                    else
-                                                      {
-                                                        if (idx < index - 1 ||
-                                                            idx > index + 1)
-                                                          {
-                                                            value.setTextFontSize(
-                                                                fontSizeRegular)
-                                                          }
-                                                        else
-                                                          {
-                                                            value.setTextFontSize(
-                                                                fontSizeLarge),
-                                                          }
-                                                      }
-                                                  });
-
-                                          _taskMap[index].setIsDone(true);
-                                          dropdownIdx = index;
-                                        });
-                                      },
-                                      child: DropdownWidget(
-                                        job: _taskMap[index],
-                                        index: index,
-                                      ));
-                                },
-                              );
-                            }))),
+                  child: new Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      DropdownButton<String>(
+                        value: dropdownValue,
+                        iconSize: 24,
+                        iconEnabledColor: Colors.white,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.white, backgroundColor: appLightPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.white,
+                        ),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>['One', 'Two', 'Free', 'Four']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                    child: Row(children: [
+                  Text(
+                    "Work time",
+                    style: TextStyle(
+                      color: appWhite,
+                      fontSize: fontSizeLarge,
+                    ),
+                  ),
+                  new DropdownButton<String>(
+                    iconEnabledColor: Colors.white,
+                    items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                      return new DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (_) {},
+                  )
+                ])),
                 dropdownIdx == _taskMap.length - 1
                     ? Container(
                         width: 150,
@@ -217,17 +209,45 @@ class JobScreen_State extends State<JobScreen> {
               ],
             ),
             Align(
+              alignment: Alignment.bottomLeft,
+              child: (TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                          right: metricsSmall,
+                        ),
+                        child: Image(
+                          image:
+                              AssetImage('assets/images/ic-chevron-left.png'),
+                        ),
+                      ),
+                      const Text(
+                        "Back",
+                        style: TextStyle(
+                            fontSize: fontSizeLarge,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFF6F6F6)),
+                      ),
+                    ],
+                  ))),
+            ),
+            Align(
               alignment: Alignment.bottomRight,
               child: (TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => PersonalInfoScreen()));
+                        MaterialPageRoute(builder: (context) => JobScreen()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const Text(
-                        "Let's go",
+                        "Next",
                         style: TextStyle(
                             fontSize: fontSizeLarge,
                             fontWeight: FontWeight.bold,

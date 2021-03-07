@@ -4,28 +4,31 @@ import 'package:todolist/models/job.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:todolist/themes/fonts.dart';
 import 'package:todolist/themes/metrics.dart';
+import 'dart:developer';
 
 class DropdownWidget extends StatelessWidget {
   final Job job;
-  DropdownWidget({this.job});
-
+  final int index;
+  DropdownWidget({Key key, this.job, this.index}): super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(job.isDone);
+    
     return Container(
         width: double.infinity,
         child: Column(
           children: [
-            new Center(
-                child: (TextButton(
-              onPressed: () {},
-              child: (Text(
+            Container(
+              margin: EdgeInsets.only(
+                top: metricsLarge,
+              ),
+              child: new Center(
+                  child: (Text(
                 job.name ?? "Blank Text",
                 style: TextStyle(
-                    fontSize: fontSizeLarge,
+                    fontSize: job.textFontSize,
                     color: job.isDone ? appWhite : (appLightGray)),
-              )),
-            ))),
+              ))),
+            )
           ],
         ));
   }
