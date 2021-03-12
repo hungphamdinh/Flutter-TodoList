@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/components/dropdown.dart';
 import 'package:todolist/components/widgets.dart';
 import 'package:todolist/models/job.dart';
+import 'package:todolist/screens/Dropdown.dart';
 import 'package:todolist/screens/JobScreen.dart';
 import 'package:todolist/screens/homepage.dart';
 import 'package:todolist/themes/color.dart';
@@ -23,44 +24,12 @@ class PersonalInfoScreen extends StatefulWidget {
   PersonalInfoScreen_State createState() => PersonalInfoScreen_State();
 }
 
-List<Map<String, dynamic>> taskMap = [
-  {
-    "id": 0,
-    "name": "Developer",
-    "isDone": false,
-    "textFontSize": fontSizeLarge
-  },
-  {
-    "id": 1,
-    "name": "UI/UX Designer",
-    "isDone": false,
-    "textFontSize": fontSizeLarge
-  },
-  {"id": 2, "name": "Engineer", "isDone": false, "textFontSize": fontSizeLarge},
-  {
-    "id": 4,
-    "name": "Architecture",
-    "isDone": false,
-    "textFontSize": fontSizeLarge
-  },
-  {
-    "id": 5,
-    "name": "Fashionita",
-    "isDone": false,
-    "textFontSize": fontSizeLarge
-  },
-  {"id": 6, "name": "Doctor", "isDone": false, "textFontSize": fontSizeLarge},
-  {"id": 7, "name": "Shipper", "isDone": false, "textFontSize": fontSizeLarge},
-  {"id": 8, "name": "Other", "isDone": false, "textFontSize": fontSizeLarge},
-];
-
 class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
   List<Job> _taskMap;
   int id = 0;
   String name = "";
   bool isDone = false;
   int dropdownIdx = 0;
-  String _value = 'one';
   String dropdownValue = 'One';
   double textFontSize = fontSizeLarge;
   @override
@@ -89,6 +58,7 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
     //       MaterialPageRoute(
     //           builder: (context) => HomePage()));
     // });
+    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(
@@ -122,67 +92,37 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
                           top: metricsLarge,
                           bottom: metricsVeryHuge,
                         ),
-                        child: Text(
-                          "What' s your job ?",
-                          style: TextStyle(
-                            color: appWhite,
-                            fontSize: fontSizeLarge,
-                          ),
-                        ),
+                        // child: Text(
+                        //   "What' s your job ?",
+                        //   style: TextStyle(
+                        //     color: appWhite,
+                        //     fontSize: fontSizeLarge,
+                        //   ),
+                        // ),
                       ),
                     ],
                   )),
                 ),
-                Container(
-                  child: new Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      DropdownButton<String>(
-                        value: dropdownValue,
-                        iconSize: 24,
-                        iconEnabledColor: Colors.white,
-                        elevation: 16,
-                        style: TextStyle(color: Colors.white, backgroundColor: appLightPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.white,
-                        ),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
-                        items: <String>['One', 'Two', 'Free', 'Four']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
+                Dropdown(
+                  title: 'Work Time',
+                  listDropdown: ['One', 'Two', 'Three'],
+                  value: 'One',
                 ),
-                Container(
-                    child: Row(children: [
-                  Text(
-                    "Work time",
-                    style: TextStyle(
-                      color: appWhite,
-                      fontSize: fontSizeLarge,
-                    ),
-                  ),
-                  new DropdownButton<String>(
-                    iconEnabledColor: Colors.white,
-                    items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                      return new DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
-                  )
-                ])),
+                Dropdown(
+                  title: 'Country',
+                  listDropdown: ['One', 'Two', 'Three'],
+                  value: 'One',
+                ),
+                Dropdown(
+                  title: 'Gender',
+                  listDropdown: ['One', 'Two', 'Three'],
+                  value: 'One',
+                ),
+                 Dropdown(
+                  title: 'City',
+                  listDropdown: ['One', 'Two', 'Three'],
+                  value: 'One',
+                ),
                 dropdownIdx == _taskMap.length - 1
                     ? Container(
                         width: 150,
