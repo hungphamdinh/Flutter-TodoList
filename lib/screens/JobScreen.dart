@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/components/dropdown.dart';
 import 'package:todolist/components/widgets.dart';
 import 'package:todolist/models/job.dart';
-import 'package:todolist/screens/PersonalInfoScreen.dart';
+import 'package:todolist/screens/PersonalInfo/PersonalInfoScreen.dart';
 import 'package:todolist/screens/homepage.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:flutter/material.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/components/dropdown.dart';
 import 'package:todolist/components/widgets.dart';
 import 'package:todolist/models/job.dart';
-import 'package:todolist/screens/Dropdown.dart';
+import 'package:todolist/screens/PersonalInfo/components/Dropdown.dart';
 import 'package:todolist/screens/JobScreen.dart';
 import 'package:todolist/screens/homepage.dart';
 import 'package:todolist/themes/color.dart';
@@ -13,7 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:todolist/themes/fonts.dart';
 import 'package:todolist/themes/metrics.dart';
 
-import '../database_helper.dart';
+import '../../database_helper.dart';
+import 'components/CustomAlertDialog.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
   final Job job;
@@ -49,6 +50,24 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
       );
     });
     super.initState();
+  }
+
+  Dialog customDialog = Dialog(
+    backgroundColor: appPrimary, // your color
+    shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(80)), // change 40 to your desired radius
+    child: CustomAlertDialog(),
+  );
+  Future<void> _handleClickMe() async {
+    return showDialog(
+      barrierDismissible:
+          true, // set false if you dont want the dialog to be dismissed when user taps anywhere [![enter image description here][1]][1]outside of the alert
+      context: context,
+      builder: (context) {
+        return customDialog;
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -118,7 +137,7 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
                   listDropdown: ['One', 'Two', 'Three'],
                   value: 'One',
                 ),
-                 Dropdown(
+                Dropdown(
                   title: 'City',
                   listDropdown: ['One', 'Two', 'Three'],
                   value: 'One',
@@ -180,8 +199,7 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
               alignment: Alignment.bottomRight,
               child: (TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => JobScreen()));
+                    _handleClickMe();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
