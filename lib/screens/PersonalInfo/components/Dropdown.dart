@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todolist/database_helper.dart';
-import 'package:todolist/models/task.dart';
-import 'package:todolist/models/todo.dart';
-import 'package:todolist/components/widgets.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:todolist/themes/fonts.dart';
 import 'package:todolist/themes/metrics.dart';

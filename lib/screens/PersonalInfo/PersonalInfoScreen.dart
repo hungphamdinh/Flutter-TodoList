@@ -1,19 +1,14 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todolist/components/dropdown.dart';
-import 'package:todolist/components/widgets.dart';
 import 'package:todolist/models/job.dart';
 import 'package:todolist/screens/PersonalInfo/components/Dropdown.dart';
 import 'package:todolist/screens/JobScreen.dart';
-import 'package:todolist/screens/homepage.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/themes/fonts.dart';
 import 'package:todolist/themes/metrics.dart';
 
-import '../../database_helper.dart';
 import 'components/CustomAlertDialog.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
@@ -59,10 +54,11 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
             BorderRadius.circular(80)), // change 40 to your desired radius
     child: CustomAlertDialog(),
   );
+
   Future<void> _handleClickMe() async {
     return showDialog(
       barrierDismissible:
-          true, // set false if you dont want the dialog to be dismissed when user taps anywhere [![enter image description here][1]][1]outside of the alert
+          true,
       context: context,
       builder: (context) {
         return customDialog;
