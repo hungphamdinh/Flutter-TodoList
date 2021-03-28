@@ -99,6 +99,7 @@ class JobScreen_State extends State<JobScreen> {
     // });
 
     return Scaffold(
+      backgroundColor: appPrimary,
       body: SafeArea(
           child: Container(
         color: appPrimary,
@@ -220,8 +221,10 @@ class JobScreen_State extends State<JobScreen> {
               alignment: Alignment.bottomRight,
               child: (TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => PersonalInfoScreen()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PersonalInfoScreen()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

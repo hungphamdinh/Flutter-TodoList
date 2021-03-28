@@ -1,12 +1,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:todolist/screens/MainScreen/MainScreen.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:todolist/themes/fonts.dart';
 import 'package:todolist/themes/metrics.dart';
 
 class CustomAlertDialog extends StatelessWidget {
+  final spinkit = SpinKitFadingCircle(
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? Colors.red : Colors.green,
+        ),
+      );
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
+    Future<void> _handleClickMe() async {
+      return showDialog(
+        barrierDismissible:
+            true, // set false if you dont want the dialog to be dismissed when user taps anywhere [![enter image description here][1]][1]outside of the alert
+        context: context,
+        builder: (context) {
+          return SpinKitPouringHourglass(color: Colors.white);
+        },
+      );
+    }
+
+    Future<void> _onSubmit() {
+      _handleClickMe();
+      Future.delayed(const Duration(milliseconds: 3000), () {
+        // Here you can write your code
+        Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => MainScreen(),
+                    ),
+                    ModalRoute.withName('/'));
+      });
+    }
+
     return Container(
       // color: appPrimary,
       height: 300,
@@ -36,7 +72,9 @@ class CustomAlertDialog extends StatelessWidget {
             Container(
               child: Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _onSubmit();
+                  },
                   child: Text(
                     'Find someone !!!',
                     style: TextStyle(

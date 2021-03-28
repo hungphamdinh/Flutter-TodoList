@@ -58,7 +58,7 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
   Future<void> _handleClickMe() async {
     return showDialog(
       barrierDismissible:
-          true,
+          true, // set false if you dont want the dialog to be dismissed when user taps anywhere [![enter image description here][1]][1]outside of the alert
       context: context,
       builder: (context) {
         return customDialog;
@@ -76,6 +76,7 @@ class PersonalInfoScreen_State extends State<PersonalInfoScreen> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: appPrimary,
       body: SafeArea(
           child: Container(
         color: appPrimary,
