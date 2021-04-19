@@ -5,6 +5,7 @@ import 'package:todolist/themes/color.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/themes/fonts.dart';
 import 'package:todolist/themes/metrics.dart';
+import 'package:flutter/foundation.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -12,6 +13,33 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreen_State extends State<MainScreen> {
+  String message = "";
+  final myController = TextEditingController();
+  @override
+  void initState() {
+    message = "";
+    myController.addListener(_printLatestValue);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the widget tree.
+    // This also removes the _printLatestValue listener.
+    myController.dispose();
+    super.dispose();
+  }
+
+  Future<void> onClickChat() {
+    print("$message");
+  }
+
+  _printLatestValue() {
+    setState(() {
+      message = myController.text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,13 +68,6 @@ class MainScreen_State extends State<MainScreen> {
                               fontSize: fontSizeLarge,
                               fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          "Halo",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: fontSizeLarge,
-                              fontWeight: FontWeight.bold),
-                        ),
                       ],
                     ),
                     Container(
@@ -61,59 +82,74 @@ class MainScreen_State extends State<MainScreen> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: metricsH5,
-                      ),
-                      child: Image(
-                        image: AssetImage('assets/images/ic-coffee.png'),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: metricsHuge,
-                      ),
-                      child: Text(
-                        "Do you want a little coffee ?",
-                        style: TextStyle(
-                          color: appLightGray,
-                          fontSize: fontSizeLarge,
-                        ),
-                      ),
-                    ),
                   ],
                 )),
               ],
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: (TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => JobScreen()));
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Text(
-                        "Let's go",
-                        style: TextStyle(
-                            fontSize: fontSizeLarge,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFF6F6F6)),
+              child: Container(
+                height: 60,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 12,
+                ),
+                alignment: Alignment.center,
+                width: double.infinity,
+                decoration: BoxDecoration(boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.black54,
+                      blurRadius: 15.0,
+                      offset: Offset(0.0, 10))
+                ], borderRadius: BorderRadius.circular(15), color: appPrimary),
+                child: new Row(
+                  children: <Widget>[
+                    new Expanded(
+                      flex: 5,
+                      child: Column(
+                        children: <Widget>[
+                          new TextField(
+                            // onChanged: (value) {
+                            //   print(value);
+                            //   // setState(() {
+                            //   //   message = value;
+                            //   // });
+                            // },
+                            controller: myController,
+                            decoration: InputDecoration(
+                              hintText: "Type message...",
+                              hintStyle: TextStyle(color: appWhite),
+                              border: InputBorder.none,
+                            ),
+                            style: TextStyle(
+                              fontSize: fontSizeRegular,
+                              fontWeight: FontWeight.normal,
+                              color: appWhite,
+                            ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: metricsSmall,
-                        ),
-                        child: Image(
-                          image:
-                              AssetImage('assets/images/ic-chevron-right.png'),
-                        ),
+                    ),
+                    new Expanded(
+                      flex: 1,
+                      child: Align(
+                        // alignment: Alignment.topRight,
+                        child: TextButton(
+                            child: Image(
+                              image: AssetImage('assets/images/ic-send.png'),
+                            ),
+                            onPressed: () {
+                              onClickChat();
+                            },
+                            style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.red),
+                            )),
                       ),
-                    ],
-                  ))),
-            ),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       )),
