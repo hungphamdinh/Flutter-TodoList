@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todolist/screens/JobScreen.dart';
+import 'package:todolist/components/widgets.dart';
+import 'package:todolist/models/message.dart';
 import 'package:todolist/themes/color.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/themes/fonts.dart';
 import 'package:todolist/themes/metrics.dart';
-import 'package:flutter/foundation.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -14,10 +14,12 @@ class MainScreen extends StatefulWidget {
 
 class MainScreen_State extends State<MainScreen> {
   String message = "";
+  List<Map<String, dynamic>> listMessage = [];
   final myController = TextEditingController();
   @override
   void initState() {
     message = "";
+    listMessage = [];
     myController.addListener(_printLatestValue);
     super.initState();
   }
@@ -31,7 +33,10 @@ class MainScreen_State extends State<MainScreen> {
   }
 
   Future<void> onClickChat() {
-    print("$message");
+    Message _message = new Message(id: 1, content: message, time: 'abc');
+    setState(() {
+      listMessage.add(_message.toJson());
+    });
   }
 
   _printLatestValue() {
@@ -82,6 +87,66 @@ class MainScreen_State extends State<MainScreen> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    Expanded(
+                        child: ScrollConfiguration(
+                      behavior: NoGlowBehaviour(),
+                      child: ListView.builder(
+                          padding: const EdgeInsets.all(8),
+                          itemCount: listMessage.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                constraints: BoxConstraints(maxWidth: 100),
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                height: 60,
+                                child: Row(
+                                  mainAxisAlignment: index % 2 != 0
+                                      ? MainAxisAlignment.end
+                                      : MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: index % 2 != 0
+                                              ? appWhite
+                                              : appPrimaryLight,
+                                          borderRadius:
+                                              BorderRadius.circular(40)),
+                                      height: 40,
+                                      padding: EdgeInsets.all(5),
+                                      margin: EdgeInsets.only(right: 10),
+                                      child: Image(
+                                        image: AssetImage(
+                                            'assets/images/logo.png'),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: index % 2 != 0
+                                              ? appWhite
+                                              : appPrimaryLight,
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      child: TextButton(
+                                          onPressed: () {
+                                            print('long Press');
+                                          },
+                                          child: Align(
+                                            child: Text(
+                                              listMessage[index]['content'],
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                height: 1.5,
+                                                color: index % 2 != 0
+                                                    ? appPrimary
+                                                    : appWhite,
+                                              ),
+                                            ),
+                                          )),
+                                    ),
+                                  ],
+                                ));
+                          }),
+                    ))
                   ],
                 )),
               ],

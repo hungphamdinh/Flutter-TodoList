@@ -1,12 +1,20 @@
-class Job {
-  final int id;
-  final String content;
-  final String time;
-  bool seen;
+class Message {
+  int id;
+  String content;
+  String time;
+  bool seen = false;
 
-  Job(this.id, this.content, this.time);
+  Message({this.id, this.content, this.time});
 
-  Map<String, dynamic> toMap() {
+  Message.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    content = json['content'];
+    time = json['time'];
+    seen = json['seen'];
+  }
+
+
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'content': content,

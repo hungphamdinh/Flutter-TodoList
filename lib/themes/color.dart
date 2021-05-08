@@ -2,6 +2,7 @@ import 'dart:ui';
 
 const appBlack = const Color(0x000);
 const appPrimary = const Color(0xFF7349FE);
+Color appPrimaryLight = HexColor.fromHex('#a459ff');
 Color appWhite = HexColor.fromHex('#ffffff');
 const appLightPurple = const Color(0xFF86829D);
 const appBlue = const Color(0xFF211551);
